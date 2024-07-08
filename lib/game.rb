@@ -15,9 +15,11 @@ class Game
       puts "\n\nTurn number #{i}"
 
       guess = @code_guesser.guess
+      puts "\nThe guess is #{guess}"
+
       feedback = @code_maker.give_feedback(guess)
 
-      puts "Your feedback is as follows:"
+      puts "The feedback is as follows:"
       puts feedback
 
       @code_guesser.get_feedback(feedback)

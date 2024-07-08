@@ -29,30 +29,39 @@ class Code_maker
     white_pegs = 0 #Correct color but wrong position
     red_pegs = 0 #Correct color and correct position
 
-    code_array = @code.split('')
-    guess_array = guess.split('')
+    if @is_human
+      puts "\nPlease put white_pegs:"
+      white_pegs = gets.chomp.to_i
 
-    guess_array.each_with_index do |color, index|
-      if code_array[index] == color && color
-        red_pegs += 1
-        code_array[index] = nil
-        guess_array[index] = nil
+      puts "\nPlease put red_pegs:"
+      red_pegs = gets.chomp.to_i
+      puts red_pegs.class
+
+    else
+      code_array = @code.split('')
+      guess_array = guess.split('')
+
+      guess_array.each_with_index do |color, index|
+        if code_array[index] == color && color
+          red_pegs += 1
+          code_array[index] = nil
+          guess_array[index] = nil
+        end
       end
-    end
 
-    guess_array.each_with_index do |color, index|
-      if code_array.find_index(color) && color
-        white_pegs +=1
-        code_array[code_array.find_index(color)] = nil
-        guess_array[index] = nil
+      guess_array.each_with_index do |color, index|
+        if code_array.find_index(color) && color
+          white_pegs +=1
+          code_array[code_array.find_index(color)] = nil
+          guess_array[index] = nil
+        end
       end
     end
 
     return {
-      white_pegs: white_pegs,
-      red_pegs: red_pegs
+      :white_pegs => white_pegs,
+      :red_pegs => red_pegs
     }
-
   end
 
   ## Helper Methods
